@@ -38,7 +38,33 @@
 * Run command date to see what is your timezone, mine is UTC as default
 
 ## Install and configure Apache to serve a Python mod_wsgi application
-* Install Apache web server:
-$ sudo apt-get install apache2
+* Install Apache web server: sudo apt-get install apache2
+* Install mod_wsgi for serving Python apps from Apache and the helper package python-setuptools: sudo apt-get install python-setuptools libapache2-mod-wsgi
+* Enable mod_wsgi: sudo a2enmod wsgi
+
+## Install Git
+* sudo apt-get install git
+* Configure your username: git config --global user.name username
+* Configure your email: git config --global user.email email
+
+## Clone the Catalog app from Github
+* Go to var/www directory: cd /var/www
+* git clone https://github.com/hebbel4/catalog-app.git
+* Make a catalog.wsgi file to serve the application over the mod_wsgi. That file should look like this:
+```
+import sys
+import logging
+logging.basicConfig(stream=sys.stderr)
+sys.path.insert(0, "/var/www/catalog/")
+
+from catalog import app as application
+```
+
+## Install virtual environment, Flask and the project's dependencies
+* Install pip, the tool for installing Python packages: $ sudo apt-get install python-pip
+* Install virtualenv: sudo pip install virtualenv
+* Activate the virtual environment: $ source venv/bin/activate
+
+
 summary of software you installed and configuration changes made
 SSH key you created for the grader user
