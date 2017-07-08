@@ -1,5 +1,7 @@
 # linux-server
 
+These are the steps to secure your server from a number of attack vectors, install and configure a database server, and deploy one of your existing web applications onto it.
+
 ## User Info
 * Public IP address: 54.160.215.248
 * SSH port: 2200
