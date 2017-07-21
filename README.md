@@ -60,6 +60,7 @@ logging.basicConfig(stream=sys.stderr)
 sys.path.insert(0, "/var/www/catalog/")
 
 from catalog import app as application
+application.secret_key = 'super_secret_key'
 ```
 
 ## Install virtual environment, Flask and the project's dependencies
@@ -67,12 +68,13 @@ from catalog import app as application
 * Install virtualenv: ```sudo pip install virtualenv```
 * Activate the virtual environment: ```source venv/bin/activate```
 * Install Flask: ```pip install Flask```
-* Install all the other project's dependencies: ```pip install bleach httplib2 request oauth2client sqlalchemy python-psycopg2```
+* Install all the other project's dependencies: ```sudo -H pip install bleach httplib2 request oauth2client sqlalchemy python-psycopg2```
 
 # Configure and enable a new virtual host
 * Create a virtual host conifg file: ```sudo nano /etc/apache2/sites-available/catalog.conf```
 * The file should look like this: 
-```<VirtualHost *:80>
+```
+<VirtualHost *:80>
     ServerName 54.160.215.248
     ServerAlias ec2-54-160-215-248.compute-1.amazonaws.com
     ServerAdmin admin@54.160.215.248
@@ -98,7 +100,9 @@ from catalog import app as application
 ## Install and configure PostgreSQL
 * Install PostgreSQL: ```sudo apt-get install postgresql postgresql-contrib```
 * Create a new user called 'catalog' with his password: ```# CREATE USER catalog WITH PASSWORD 'somepassword'```
-* Create the 'catalog' database owned by catalog user: ```# CREATE DATABASE catalog WITH OWNER catalog;```
+* Create the 'catalog' database owned by catalog user: ```sudo -u postgres creatdb -O catalog catalog;```
+* If you need to change user catalog's password: ```sudo -u postgres psql```
+* Run command: ```alter user catalog with password 'catalog';```
 * Inside the Flask application, the database connection is now performed with: engine = create_engine('postgresql://catalog:somepassword@localhost/catalog')
 * Setup the database with: ```python /var/www/catalog/catalog/setup_database.py```
 
