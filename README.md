@@ -106,6 +106,12 @@ application.secret_key = 'super_secret_key'
 * Inside the Flask application, the database connection is now performed with: engine = create_engine('postgresql://catalog:somepassword@localhost/catalog')
 * Setup the database with: ```python /var/www/catalog/catalog/setup_database.py```
 
-##  Restart Apache to launch the app
+##  Restart Apache and launch the app
 * ```sudo service apache2 restart```
+* Setup the database with: ```python db_setup.py```
+* Populate database: ```python catalog_init.py```, don't forget to change "engine = create_engine('postgresql://catalog:somepassword@localhost/catalog')" in that file
+* Run ```nano application.py```, In the line of CLIENT_ID, add route info of json file ```'/var/www/catalog/client_secrets.json'```, add it in gconnect function also.
+* In console developer website, add "http://54.160.215.248" in javascript origin, and download client_secrets.json again
+* Run command: ```python application.py```
+* enter your public IP address in browser
 
